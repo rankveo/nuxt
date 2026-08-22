@@ -1,6 +1,6 @@
 {
   "name": "@rankveo/nuxt",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Run your rankveo blog on a Nuxt site. SEO, GEO and AEO content, served from your own domain.",
   "license": "MIT",
   "author": "rankveo",
@@ -50,7 +50,7 @@
     "test": "tsx --test src/*.spec.ts"
   },
   "dependencies": {
-    "@rankveo/client": "^0.2.0"
+    "@rankveo/client": "^0.2.1"
   },
   "peerDependencies": {
     "nuxt": ">=3.0.0"
