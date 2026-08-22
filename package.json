@@ -1,0 +1,69 @@
+{
+  "name": "@rankveo/nuxt",
+  "version": "0.2.0",
+  "description": "Run your rankveo blog on a Nuxt site. SEO, GEO and AEO content, served from your own domain.",
+  "license": "MIT",
+  "author": "rankveo",
+  "homepage": "https://rankveo.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rankveo/nuxt.git"
+  },
+  "keywords": [
+    "rankveo",
+    "nuxt",
+    "nuxt-module",
+    "vue",
+    "blog",
+    "seo",
+    "geo",
+    "aeo",
+    "headless"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./module": {
+      "types": "./dist/module.d.ts",
+      "import": "./dist/module.js",
+      "default": "./dist/module.js"
+    },
+    "./starter/*": "./starter/*"
+  },
+  "files": [
+    "dist",
+    "starter",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.18"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/*.spec.ts"
+  },
+  "dependencies": {
+    "@rankveo/client": "^0.2.0"
+  },
+  "peerDependencies": {
+    "nuxt": ">=3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/rankveo/nuxt/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^5.9.3"
+  }
+}
