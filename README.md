@@ -1,6 +1,6 @@
 # @rankveo/nuxt
 
-Run your [rankveo](https://rankveo.com) blog on a Nuxt site.
+Run your [rankveo](https://rankveo.com/nuxt) blog on a Nuxt site.
 
 ```bash
 npm install @rankveo/nuxt
@@ -43,5 +43,9 @@ framework output.
 changes. What it should do depends on your preset: trigger on-demand ISR where
 the platform supports it, purge your CDN otherwise. A fully prerendered Nuxt site
 has nothing to invalidate — use a deploy hook instead.
+
+---
+
+[Docs and setup guide](https://rankveo.com/nuxt) · [All integrations](https://rankveo.com)
 
 MIT.
