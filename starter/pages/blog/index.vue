@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { pageCount } from '@rankveo/nuxt';
+import { formatPublishedDate, pageCount } from '@rankveo/nuxt';
 
 const route = useRoute();
 const config = useRuntimeConfig();
@@ -43,7 +43,12 @@ useHead({ title: 'Blog' });
           <span v-if="article.category" class="blog-card-category">{{ article.category.name }}</span>
           <h2><NuxtLink :to="`${basePath}/${article.slug}`">{{ article.title }}</NuxtLink></h2>
           <p>{{ article.metaDescription }}</p>
-          <div class="blog-meta"><span>{{ article.readingTime }} min read</span></div>
+          <div class="blog-meta">
+            <time v-if="formatPublishedDate(article)" :datetime="article.publishedAt ?? undefined">
+              {{ formatPublishedDate(article) }}
+            </time>
+            <span>{{ article.readingTime }} min read</span>
+          </div>
         </div>
       </article>
     </div>

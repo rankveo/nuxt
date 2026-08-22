@@ -9,6 +9,9 @@
  * would call once and silently discard.
  */
 
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 export interface RankveoModuleOptions {
   /** Defaults to `RANKVEO_BLOG_API_KEY`. */
   apiKey?: string;
@@ -28,6 +31,8 @@ interface NuxtLike {
   options: {
     runtimeConfig: Record<string, unknown> & { public?: Record<string, unknown> };
     routeRules?: Record<string, unknown>;
+    css?: string[];
+    srcDir?: string;
   };
 }
 
@@ -62,6 +67,8 @@ export function rankveoModule(inlineOptions: RankveoModuleOptions = {}, nuxt?: N
     rankveo: { basePath },
   };
 
+  registerBlogStylesheet(nuxt);
+
   if (inlineOptions.swr !== false) {
     const rules = (nuxt.options.routeRules ??= {});
     const swr = inlineOptions.swr ?? DEFAULT_SWR;
@@ -71,6 +78,27 @@ export function rankveoModule(inlineOptions: RankveoModuleOptions = {}, nuxt?: N
     rules[basePath] = { ...(rules[basePath] as object), swr };
     rules[`${basePath}/**`] = { ...(rules[`${basePath}/**`] as object), swr };
   }
+}
+
+/**
+ * Registers the starter's stylesheet globally, if the project has one.
+ *
+ * Importing `assets/blog.css` from a page's `<script setup>` looks like it
+ * should work, but Vite folds it into a shared chunk that is not part of the
+ * route's CSS manifest, so a prerendered page ships with no stylesheet link at
+ * all — the blog renders unstyled and nothing warns you. `nuxt.options.css` is
+ * the path Nuxt guarantees ends up in the document head.
+ *
+ * Kept conditional: a project that never copied the starter, or one that styles
+ * the blog itself, gets nothing added.
+ */
+function registerBlogStylesheet(nuxt: NuxtLike): void {
+  const entry = '~/assets/blog.css';
+  const srcDir = nuxt.options.srcDir;
+  if (!srcDir) return;
+  if (!existsSync(join(srcDir, 'assets', 'blog.css'))) return;
+  const css = (nuxt.options.css ??= []);
+  if (!css.includes(entry)) css.push(entry);
 }
 
 // Nuxt reads this to name the module and to find its config key.
